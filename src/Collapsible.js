@@ -6,13 +6,19 @@ var Collapsible = React.createClass({
   //Set validation for prop types
   propTypes: {
     transitionTime: React.PropTypes.number,
-    triggerText: React.PropTypes.string.isRequired,
-    triggerTextWhenOpen: React.PropTypes.string,
     easing: React.PropTypes.string,
     open: React.PropTypes.bool,
     classParentString: React.PropTypes.string,
     accordionPosition: React.PropTypes.number,
-    handleTriggerClick: React.PropTypes.func
+    handleTriggerClick: React.PropTypes.func,
+    trigger: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element
+    ]),
+    triggerWhenOpen:React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element
+    ]),
   },
 
   //If no transition time or easing is passed then default to this
@@ -170,11 +176,11 @@ var Collapsible = React.createClass({
     var openClass = this.state.isClosed ? 'is-closed' : 'is-open';
 
     //If user wants different text when tray is open
-    var triggerText = (this.state.isClosed === false) && (this.props.triggerTextWhenOpen !== undefined) ? this.props.triggerTextWhenOpen : this.props.triggerText;
+    var trigger = (this.state.isClosed === false) && (this.props.triggerWhenOpen !== undefined) ? this.props.triggerWhenOpen : this.props.trigger;
 
     return(
       <div className={this.props.classParentString}>
-        <a href="#" className={this.props.classParentString + "__trigger" + ' ' + openClass} onClick={this.handleTriggerClick}>{triggerText}</a>
+        <span className={this.props.classParentString + "__trigger" + ' ' + openClass} onClick={this.handleTriggerClick}>{trigger}</span>
         <div className={this.props.classParentString + "__contentOuter" } ref="outer" style={dropdownStyle}>
           <div className={this.props.classParentString + "__contentInner"} ref="inner">
             {this.props.children}
