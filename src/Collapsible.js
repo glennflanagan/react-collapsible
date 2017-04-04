@@ -114,11 +114,18 @@ var Collapsible = React.createClass({
           shouldSwitchAutoOnNextCycle: true
         });
       }
-
+      this.setState({
+        inTransition: false
+      })
     });
   },
 
+
   componentDidUpdate: function(prevProps) {
+
+    if(this.state.shouldOpenOnNextCycle){
+      this.continueOpenCollapsible();
+    }
 
     if(this.state.shouldSwitchAutoOnNextCycle === true && this.state.isClosed === false) {
       //Set the height to auto to make compoenent re-render with the height set to auto.
@@ -131,7 +138,7 @@ var Collapsible = React.createClass({
     }
 
     //If there has been a change in the open prop (controlled by accordion)
-    if(prevProps.open != this.props.open) {
+    if(prevProps.open !== this.props.open) {
       if(this.props.open === true) {
         this.openCollapsible();
       }
@@ -171,15 +178,25 @@ var Collapsible = React.createClass({
       shouldSwitchAutoOnNextCycle: true,
       height: this.refs.inner.offsetHeight,
       overflow: 'hidden',
+      inTransition: true
     }, this.props.onClose);
   },
 
   openCollapsible: function() {
     this.setState({
+      shouldOpenOnNextCycle: true,
+      inTransition: true
+    });
+  },
+
+  continueOpenCollapsible: function() {
+    this.setState({
+      shouldOpenOnNextCycle: false,
       height: this.refs.inner.offsetHeight,
       transition: 'height ' + this.props.transitionTime + 'ms ' + this.props.easing,
       isClosed: false,
-      hasBeenOpened: true
+      hasBeenOpened: true,
+      inTransition: true
     }, this.props.onOpen);
   },
 
@@ -232,21 +249,21 @@ var Collapsible = React.createClass({
     // Don't render children until the first opening of the Collapsible if lazy rendering is enabled
     var children = this.props.children;
     if(this.props.lazyRender)
-      if(!this.state.hasBeenOpened)
-          children = null;
+      if(this.state.isClosed && !this.state.inTransition)
+        children = null;
 
     let triggerClassName = this.props.classParentString + "__trigger" + ' ' + openClass + ' ' + disabledClass;
 
     if (this.state.isClosed) {
       triggerClassName = triggerClassName + ' ' + this.props.triggerClassName;
     } else {
-      triggerClassName = triggerClassName + ' ' + this.props.triggerOpenedClassName;      
+      triggerClassName = triggerClassName + ' ' + this.props.triggerOpenedClassName;
     }
 
     return(
       <div className={this.props.classParentString + ' ' + (this.state.isClosed ? this.props.className : this.props.openedClassName)}>
         <span className={triggerClassName.trim()} onClick={this.handleTriggerClick}>{trigger}</span>
-        
+
         {this.renderNonClickableTriggerElement()}
 
         <div className={this.props.classParentString + "__contentOuter" + ' ' + this.props.contentOuterClassName } ref="outer" style={dropdownStyle}>
