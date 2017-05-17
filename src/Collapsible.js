@@ -208,7 +208,7 @@ var Collapsible = createReactClass({
   renderNonClickableTriggerElement: function () {
     if (this.props.triggerSibling) {
       return (
-        <span className={this.props.classParentString  + "__trigger-sibling"}>{this.props.triggerSibling}</span>
+        <span>{this.props.triggerSibling}</span>
       )
     }
 
@@ -247,9 +247,11 @@ var Collapsible = createReactClass({
 
     return(
       <div className={this.props.classParentString + ' ' + (this.state.isClosed ? this.props.className : this.props.openedClassName)}>
-        <span className={triggerClassName.trim()} onClick={this.handleTriggerClick}>{trigger}</span>
+        <div className={this.props.triggerClassName}>
+          <span onClick={this.handleTriggerClick}>{trigger}</span>
 
-        {this.renderNonClickableTriggerElement()}
+          {this.renderNonClickableTriggerElement()}
+        </div>
 
         <div className={this.props.classParentString + "__contentOuter" + ' ' + this.props.contentOuterClassName } ref="outer" style={dropdownStyle}>
           <div className={this.props.classParentString + "__contentInner" + ' ' + this.props.contentInnerClassName} ref="inner">
