@@ -12,6 +12,8 @@ var Collapsible = createReactClass({
     open: PropTypes.bool,
     classParentString: PropTypes.string,
     openedClassName: PropTypes.string,
+    triggerSiblingClassname: React.PropTypes.string,
+    triggerOnlyClassName: React.PropTypes.string,
     triggerClassName: PropTypes.string,
     triggerOpenedClassName: PropTypes.string,
     contentOuterClassName: PropTypes.string,
@@ -54,6 +56,8 @@ var Collapsible = createReactClass({
       overflowWhenOpen: 'hidden',
       openedClassName: '',
       triggerClassName: '',
+      triggerSiblingClassname: '',
+      triggerOnlyClassName: '',
       triggerOpenedClassName: '',
       contentOuterClassName: '',
       contentInnerClassName: '',
@@ -205,10 +209,10 @@ var Collapsible = createReactClass({
     }, 50);
   },
 
-  renderNonClickableTriggerElement: function () {
+  renderNonClickableTriggerElement: function (triggerSiblingClassname) {
     if (this.props.triggerSibling) {
       return (
-        <span>{this.props.triggerSibling}</span>
+      <span className={triggerSiblingClassname}>{this.props.triggerSibling}</span>
       )
     }
 
@@ -238,6 +242,8 @@ var Collapsible = createReactClass({
           children = null;
 
     let triggerClassName = this.props.classParentString + "__trigger" + ' ' + openClass + ' ' + disabledClass;
+    let triggerSiblingClassName = this.props.classParentString + "__triggerSibling" + ' ' + this.props.triggerSiblingClassname;
+    let triggerOnlyClassName = this.props.classParentString + "__triggerOnly" + ' ' + this.props.triggerOnlyClassName;
 
     if (this.state.isClosed) {
       triggerClassName = triggerClassName + ' ' + this.props.triggerClassName;
@@ -248,9 +254,9 @@ var Collapsible = createReactClass({
     return(
       <div className={this.props.classParentString + ' ' + (this.state.isClosed ? this.props.className : this.props.openedClassName)}>
         <div className={this.props.triggerClassName}>
-          <span onClick={this.handleTriggerClick}>{trigger}</span>
+          <span className={triggerOnlyClassName} onClick={this.handleTriggerClick}>{trigger}</span>
 
-          {this.renderNonClickableTriggerElement()}
+          {this.renderNonClickableTriggerElement(triggerSiblingClassName)}
         </div>
 
         <div className={this.props.classParentString + "__contentOuter" + ' ' + this.props.contentOuterClassName } ref="outer" style={dropdownStyle}>

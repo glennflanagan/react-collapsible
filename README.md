@@ -99,7 +99,13 @@ Use this to overwrite the parent CSS class for the Collapsible component parts. 
 ### `triggerClassName` | *string* 
 `.Collapsible__trigger` element (root) when closed
 
-### `triggerOpenedClassName` | *string* 
+### `triggerOnlyClassName` | *string*
+`.Collapsible__triggerOnly` element
+
+### `triggerSiblingClassName` | *string*
+`.Collapsible__triggerSibling` element
+
+### `triggerOpenedClassName` | *string*
 `.Collapsible__trigger` element (root) when open
 
 ### `contentOuterClassName` | *string* 
