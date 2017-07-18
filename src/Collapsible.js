@@ -44,7 +44,9 @@ var oldCollapsible = createReactClass({
       'initial',
       'unset',
     ]),
-    triggerSibling: PropTypes.element
+    triggerSibling: PropTypes.element,
+    triggerElementTag: _react2.default.PropTypes.string,
+    nonClickableTriggerElementTag: _react2.default.PropTypes.string
   },
 
   //If no transition time or easing is passed then default to this
@@ -64,8 +66,9 @@ var oldCollapsible = createReactClass({
       contentInnerClassName: '',
       className: '',
       triggerSibling: null,
-      onOpen: () => {},
-      onClose: () => {},
+      triggerElementTag: 'a',
+      nonClickableTriggerElementTag: 'a'
+      
     };
   },
 
@@ -211,9 +214,11 @@ var oldCollapsible = createReactClass({
   },
 
   renderNonClickableTriggerElement: function () {
+    let nonClickableTriggerElementTag = this.props.nonClickableTriggerElementTag
+    
     if (this.props.triggerSibling) {
       return (
-        <span className={this.props.classParentString  + "__trigger-sibling"}>{this.props.triggerSibling}</span>
+        <nonClickableTriggerElementTag className={this.props.classParentString  + "__trigger-sibling"}>{this.props.triggerSibling}</nonClickableTriggerElementTag>
       )
     }
 
@@ -250,9 +255,11 @@ var oldCollapsible = createReactClass({
       triggerClassName = triggerClassName + ' ' + this.props.triggerOpenedClassName;
     }
 
+    let triggerElementTag = this.props.triggerElementTag
+
     return(
       <div className={this.props.classParentString + ' ' + (this.state.isClosed ? this.props.className : this.props.openedClassName)}>
-        <span className={triggerClassName.trim()} onClick={this.handleTriggerClick}>{trigger}</span>
+        <triggerElementTag className={triggerClassName.trim()} onClick={this.handleTriggerClick}>{trigger}</triggerElementTag>
 
         {this.renderNonClickableTriggerElement()}
 
