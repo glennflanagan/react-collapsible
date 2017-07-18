@@ -96,6 +96,12 @@ Use this to overwrite the parent CSS class for the Collapsible component parts. 
 ### `openedClassName` | *string* 
 `.Collapsible` element (root) when open
 
+### `triggerElementTag` | *string* 
+`.Collapsible__trigger` change html element tag for the trigger, defaults to a tag
+
+### `nonClickableTriggerElementTag` | *string* 
+`.Collapsible__trigger` change html element tag for non clickable trigger, defaults to a tag
+
 ### `triggerClassName` | *string* 
 `.Collapsible__trigger` element (root) when closed
 
