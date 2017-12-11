@@ -12,7 +12,7 @@ Supported by [Browserstack](https://www.browserstack.com).
 
 ---
 ## Migrating from v1.x to v2.x
-Version 2 is 100% API complete to version 1. However, there is a breaking change in the `onOpen` and `onClose` callbacks. These methods now fire at the end of the collapsing animation. There is also the addition of `onOpening` and `onClosing` callbacks which fire at the beginning of the animation. 
+Version 2 is 100% API complete to version 1. However, there is a breaking change in the `onOpen` and `onClose` callbacks. These methods now fire at the end of the collapsing animation. There is also the addition of `onOpening` and `onClosing` callbacks which fire at the beginning of the animation.
 
 To migrate to v2 from v1 simply change the `onOpen` prop to `onOpening` and `onClose` to `onClosing`.
 
@@ -89,7 +89,7 @@ Set to true if you want the Collapsible to begin in the open state. You can also
 Unique key used to identify the `Collapse` instance when used in an accordion.
 
 ### **handleTriggerClick** | *function*
-Define this to override the click handler for the trigger link. Takes one parameter, which is `props.accordionPosition`.
+Define this to override the click handler for the trigger link. Takes two parameters, which are `props.accordionPosition` and `event` (for specific cases handling).
 
 ### **onOpen** | *function*
 Is called when the Collapsible has opened.
@@ -118,22 +118,22 @@ after `.Collapsible__trigger`
 ### **classParentString** | *string* | default: Collapsible
 Use this to overwrite the parent CSS class for the Collapsible component parts. Read more in the CSS section below.
 
-### **className** | *string* 
+### **className** | *string*
 `.Collapsible` element (root) when closed
 
-### **openedClassName** | *string* 
+### **openedClassName** | *string*
 `.Collapsible` element (root) when open
 
-### **triggerClassName** | *string* 
+### **triggerClassName** | *string*
 `.Collapsible__trigger` element (root) when closed
 
-### **triggerOpenedClassName** | *string* 
+### **triggerOpenedClassName** | *string*
 `.Collapsible__trigger` element (root) when open
 
-### **contentOuterClassName** | *string* 
+### **contentOuterClassName** | *string*
 `.Collapsible__contentOuter` element
 
-### **contentInnerClassName** | *string* 
+### **contentInnerClassName** | *string*
 `.Collapsible__contentInner` element
 
 ---
