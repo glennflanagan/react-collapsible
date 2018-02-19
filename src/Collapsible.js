@@ -169,7 +169,15 @@ class Collapsible extends Component {
       <div className={parentClassString.trim()}>
         <span
           className={triggerClassString.trim()}
-          onClick={this.handleTriggerClick}>
+          onClick={this.handleTriggerClick}
+          onKeyPress={(event) => {
+            const { key } = event;
+            if (key === ' ' || key === 'Enter') {
+              this.handleTriggerClick(event);
+            }
+          }}
+          tabIndex={this.props.tabIndex}
+          role="button">
           {trigger}
         </span>
 
@@ -232,6 +240,7 @@ Collapsible.propTypes = {
     PropTypes.element,
     PropTypes.func,
   ]),
+  tabIndex: PropTypes.number,
 }
 
 Collapsible.defaultProps = {
@@ -253,6 +262,7 @@ Collapsible.defaultProps = {
   onClose: () => {},
   onOpening: () => {},
   onClosing: () => {},
+  tabIndex: 0,
 };
 
 export default Collapsible;
