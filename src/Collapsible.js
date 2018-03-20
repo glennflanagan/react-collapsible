@@ -142,7 +142,7 @@ class Collapsible extends Component {
       msTransition: this.state.transition,
       transition: this.state.transition,
       overflow: this.state.overflow,
-      visiblity: this.state.hideContainer ? 'hidden' : 'visible',
+      visibility: this.state.hideContainer ? 'hidden' : 'visible',
     }
 
     var openClass = this.state.isClosed ? 'is-closed' : 'is-open';
