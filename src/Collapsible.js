@@ -20,6 +20,7 @@ class Collapsible extends Component {
         hasBeenOpened: true,
         overflow: props.overflowWhenOpen,
         inTransition: false,
+        hideContainer: false,
       }
     } else {
       this.state = {
@@ -30,6 +31,7 @@ class Collapsible extends Component {
         hasBeenOpened: false,
         overflow: 'hidden',
         inTransition: false,
+        hideContainer: true,
       }
     }
   }
@@ -76,6 +78,7 @@ class Collapsible extends Component {
     this.setState({
       inTransition: true,
       shouldOpenOnNextCycle: true,
+      hideContainer: false,
     });
   }
 
@@ -128,7 +131,7 @@ class Collapsible extends Component {
       this.setState({ height: 'auto', overflow: this.props.overflowWhenOpen, inTransition: false });
       this.props.onOpen();
     } else {
-      this.setState({ inTransition: false });
+      this.setState({ inTransition: false, hideContainer: true });
       this.props.onClose();
     }
   }
@@ -140,6 +143,7 @@ class Collapsible extends Component {
       msTransition: this.state.transition,
       transition: this.state.transition,
       overflow: this.state.overflow,
+      visibility: this.state.hideContainer ? 'hidden' : 'visible',
     }
 
     var openClass = this.state.isClosed ? 'is-closed' : 'is-open';
