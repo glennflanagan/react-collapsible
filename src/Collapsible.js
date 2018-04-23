@@ -116,7 +116,7 @@ class Collapsible extends Component {
         <span className={`${this.props.classParentString}__trigger-sibling`}>{this.props.triggerSibling}</span>
       )
     } else if(this.props.triggerSibling) {
-      return <this.props.triggerSibling />
+      return this.props.triggerSibling;
     }
 
     return null;
