@@ -1,20 +1,22 @@
 {
   "name": "react-collapsible",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "React component to wrap content in Collapsible element with trigger to open and close.",
   "keywords": [
     "react-component",
     "react",
     "collapse",
     "collapsible",
-    "accordion"
+    "accordion",
+    "rcpd"
   ],
   "main": "dist/Collapsible.js",
   "types": "./index.d.ts",
   "author": "Glenn Flanagan <glenn@arctictiger.co.uk>",
   "contributors": [
     "Karl Taylor <karl_taylor@me.com>",
-    "Rebeca Sarai <rebecasaraiaguiar@gmail.com>"
+    "Rebeca Sarai <rebecasaraiaguiar@gmail.com>",
+    "Ujwal Battar <ujwal.battar@gmail.com>"
   ],
   "license": "MIT",
   "devDependencies": {
@@ -41,10 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/glennflanagan/react-collapsible"
-  },
-  "bugs": {
-    "url": "https://github.com/glennflanagan/react-collapsible/issues"
+    "url": "https://github.com/UjwalBattar/react-collapsible-rcpd"
   },
   "scripts": {
     "build": "babel src/Collapsible.js > dist/Collapsible.js",
