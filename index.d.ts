@@ -33,7 +33,7 @@ export interface CollapsibleProps extends React.HTMLProps<Collapsible> {
     | "inherit"
     | "initial"
     | "unset";
-  triggerSibling?: React.ReactElement<any>;
+  triggerSibling?: string | React.ReactElement<any> | function;
   className?: string;
   tabIndex?: number;
   contentContainerTagName?: string;
