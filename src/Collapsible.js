@@ -124,10 +124,11 @@ class Collapsible extends Component {
       return (
         <span className={`${this.props.classParentString}__trigger-sibling`}>{this.props.triggerSibling}</span>
       )
-    } else if (this.props.triggerSibling) {
-      return <this.props.triggerSibling />
+    } else if (typeof this.props.triggerSibling === 'object') {
+        return this.props.triggerSibling
+    } else if (typeof this.props.triggerSibling === 'function') {
+        return <this.props.triggerSibling />
     }
-
     return null;
   }
 
@@ -179,6 +180,7 @@ class Collapsible extends Component {
       && !this.state.inTransition ? null : this.props.children;
 
     // Construct CSS classes strings
+    const headerClassString = `${this.props.classParentString}__header`;
     const triggerClassString = `${this.props.classParentString}__trigger ${openClass} ${disabledClass} ${
       this.state.isClosed ? this.props.triggerClassName : this.props.triggerOpenedClassName
       }`;
@@ -190,23 +192,25 @@ class Collapsible extends Component {
 
     return (
       <ContentContainerElement className={parentClassString.trim()} {...this.props.containerElementProps} >
-        <TriggerElement
-          className={triggerClassString.trim()}
-          onClick={this.handleTriggerClick}
-          style={this.props.triggerStyle && this.props.triggerStyle}
-          onKeyPress={(event) => {
-            const { key } = event;
-            if (key === ' ' || key === 'Enter') {
-              this.handleTriggerClick(event);
-            }
-          }}
-          tabIndex={this.props.tabIndex && this.props.tabIndex}
-          {...this.props.triggerElementProps}
-        >
-          {trigger}
-        </TriggerElement>
+        <div className={headerClassString}>
+            <TriggerElement
+              className={triggerClassString.trim()}
+              onClick={this.handleTriggerClick}
+              style={this.props.triggerStyle && this.props.triggerStyle}
+              onKeyPress={(event) => {
+                const { key } = event;
+                if (key === ' ' || key === 'Enter') {
+                  this.handleTriggerClick(event);
+                }
+              }}
+              tabIndex={this.props.tabIndex && this.props.tabIndex}
+              {...this.props.triggerElementProps}
+            >
+              {trigger}
+            </TriggerElement>
 
-        {this.renderNonClickableTriggerElement()}
+            {this.renderNonClickableTriggerElement()}
+        </div>
 
         <div
           className={outerClassString.trim()}
