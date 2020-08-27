@@ -124,6 +124,11 @@ Is called when the Collapsible close trigger is clicked. Like onClosing except i
 ### **lazyRender** | *bool* | default: false
 Set this to true to postpone rendering of all of the content of the Collapsible until before it's opened for the first time
 
+### **render** | *function* | default: null
+A `render` function can be used instead of children. this function will get `isOpened` is `inTransition` props, useful for adding aria-hidden attributes or pausing media.
+
+This overrides the children prop.
+
 ### **overflowWhenOpen** | *enum* | default: 'hidden'
 The CSS overflow property once the Collapsible is open. This can be any one of the valid CSS values of `'hidden'`, `'visible'`, `'auto'`, `'scroll'`, `'inherit'`, `'initial'`, or `'unset'`
 

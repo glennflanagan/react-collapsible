@@ -126,7 +126,7 @@ class Collapsible extends Component {
       return (
         <span className={`${this.props.classParentString}__trigger-sibling`}>{this.props.triggerSibling}</span>
       )
-    } else if (this.props.triggerSibling && typeof this.props.triggerSibling === 'function') {    
+    } else if (this.props.triggerSibling && typeof this.props.triggerSibling === 'function') {
       return this.props.triggerSibling();
     } else if (this.props.triggerSibling) {
       return <this.props.triggerSibling />
@@ -177,10 +177,10 @@ class Collapsible extends Component {
     const TriggerElement = this.props.triggerTagName;
 
     // Don't render children until the first opening of the Collapsible if lazy rendering is enabled
-    var children = this.props.lazyRender
+    var shouldNotRender = this.props.lazyRender
       && !this.state.hasBeenOpened
       && this.state.isClosed
-      && !this.state.inTransition ? null : this.props.children;
+      && !this.state.inTransition;
 
     // Construct CSS classes strings
     const triggerClassString = `${this.props.classParentString}__trigger ${openClass} ${disabledClass} ${
@@ -192,6 +192,7 @@ class Collapsible extends Component {
     const outerClassString = `${this.props.classParentString}__contentOuter ${this.props.contentOuterClassName}`;
     const innerClassString = `${this.props.classParentString}__contentInner ${this.props.contentInnerClassName}`;
 
+    const { children, render } = this.props
     return (
       <ContentContainerElement className={parentClassString.trim()} {...this.props.containerElementProps} >
         <TriggerElement
@@ -217,13 +218,17 @@ class Collapsible extends Component {
           style={dropdownStyle}
           onTransitionEnd={this.handleTransitionEnd}
           ref={this.setInnerRef}
-          aria-hidden={this.state.isClosed}
-          hidden={this.state.isClosed && !this.state.inTransition}
         >
           <div
             className={innerClassString.trim()}
           >
-            {children}
+            {
+              shouldNotRender
+                ? null
+                : render
+                  ? render({ isClosed: this.state.isClosed, inTransition: this.state.inTransition })
+                  : children
+            }
           </div>
         </div>
       </ContentContainerElement>
@@ -264,6 +269,7 @@ Collapsible.propTypes = {
   ]),
   triggerDisabled: PropTypes.bool,
   lazyRender: PropTypes.bool,
+  render: PropTypes.func,
   overflowWhenOpen: PropTypes.oneOf([
     'hidden',
     'visible',
@@ -290,6 +296,7 @@ Collapsible.defaultProps = {
   classParentString: 'Collapsible',
   triggerDisabled: false,
   lazyRender: false,
+  render: null,
   overflowWhenOpen: 'hidden',
   openedClassName: '',
   triggerStyle: null,
