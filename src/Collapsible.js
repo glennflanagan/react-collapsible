@@ -217,6 +217,8 @@ class Collapsible extends Component {
           style={dropdownStyle}
           onTransitionEnd={this.handleTransitionEnd}
           ref={this.setInnerRef}
+          aria-hidden={this.state.isClosed}
+          hidden={this.state.isClosed && !this.state.inTransition}
         >
           <div
             className={innerClassString.trim()}
