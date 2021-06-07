@@ -177,6 +177,9 @@ class Collapsible extends Component {
       transition: this.state.transition,
       overflow: this.state.overflow,
     };
+    if (this.props.contentHiddenWhenClosed && this.state.isClosed && !this.state.inTransition) {
+      dropdownStyle.visibility = 'hidden';
+    }
 
     var openClass = this.state.isClosed ? 'is-closed' : 'is-open';
     var disabledClass = this.props.triggerDisabled ? 'is-disabled' : '';
@@ -253,11 +256,6 @@ class Collapsible extends Component {
           style={dropdownStyle}
           onTransitionEnd={this.handleTransitionEnd}
           ref={this.setInnerRef}
-          hidden={
-            this.props.contentHiddenWhenClosed &&
-            this.state.isClosed &&
-            !this.state.inTransition
-          }
         >
           <div className={innerClassString.trim()}>{children}</div>
         </div>

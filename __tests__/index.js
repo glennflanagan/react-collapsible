@@ -199,4 +199,28 @@ describe('<Collapsible />', () => {
       expect(wrapper.props().open).toBe(false);
     });
   });
+  
+  describe('contentHiddenWhenClosed prop', () => {
+    it('does not hide the content when open', () => {
+      const wrapper = mount(
+        <Collapsible trigger="Hello World" open={true} contentHiddenWhenClosed>
+          <input/>
+        </Collapsible>
+      );
+      const inputElement = wrapper.find('input').getDOMNode();
+      const styles = getComputedStyle(inputElement);
+      expect(styles.visibility).not.toEqual('hidden');
+    });
+
+    it('hides the content when closed', () => {
+      const wrapper = mount(
+        <Collapsible trigger="Hello World" open={false} contentHiddenWhenClosed>
+          <input/>
+        </Collapsible>
+      );
+      const inputElement = wrapper.find('input').getDOMNode();
+      const styles = getComputedStyle(inputElement);
+      expect(styles.visibility).toEqual('hidden');
+    });
+  });
 });
