@@ -278,6 +278,7 @@ class Collapsible extends Component {
   }
 }
 
+Collapsible.displayName = 'Collapsible'
 Collapsible.propTypes = {
   transitionTime: PropTypes.number,
   transitionCloseTime: PropTypes.number,
